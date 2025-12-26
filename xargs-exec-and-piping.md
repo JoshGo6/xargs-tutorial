@@ -198,14 +198,6 @@ The following list summarizes the frequently used options with `xargs`:
 - `-L <n-lines>`   Pass at most `<n-lines>` of non-blank input lines to each command invocation. You can use this to limit the number of lines of input that an invocation of a command processes. For instance, `cat urls.txt | xargs -L 1 curl` only allows `curl` to process one line from at a time from `urls.txt`. This is mutually exclusive with `-n`.
 - `-n <max-args>`   Pass at most `<max-args>` arguments to each command invocation. This controls batching by argument count, instead of by line count. Mutually exclusive with `-L` (last one specified takes effect). Example: `echo "1 2 3 4 5 6" | xargs -n 2 echo` outputs three pairs of numbers.
 
-### xargs with shell builtins
-
-In order to use `xargs` with a shell builtin, you need to invoke `bash -c` or `sh -c`:
-
-```bash
-find . -type f -name "v3*" -exec bash -c 'cd "{}" && pwd' \;
-```
-
 ## exec
 
 See [[find with exec and ok]].
