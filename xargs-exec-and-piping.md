@@ -198,13 +198,11 @@ The following list summarizes the frequently used options with `xargs`:
 - `-L <n-lines>`   Pass at most `<n-lines>` of non-blank input lines to each command invocation. You can use this to limit the number of lines of input that an invocation of a command processes. For instance, `cat urls.txt | xargs -L 1 curl` only allows `curl` to process one line from at a time from `urls.txt`. This is mutually exclusive with `-n`.
 - `-n <max-args>`   Pass at most `<max-args>` arguments to each command invocation. This controls batching by argument count, instead of by line count. Mutually exclusive with `-L` (last one specified takes effect). Example: `echo "1 2 3 4 5 6" | xargs -n 2 echo` outputs three pairs of numbers.
 
-## exec
+## `xargs` vs `find...-exec`
 
-See [[find with exec and ok]].
+When chaining commands `<cmd1>` and `<cmd2>, if <cmd2> acts on stdin, you can use a simple pipe, ` as in `<cmd1> | <cmd2>`. When `<cmd2>` takes a positional argument, instead of acting on stdin, you can use `xargs`. An example is `mv`, which requires you to first specify a source, and then a destination. 
 
-## `xargs` vs `-exec`
-
-Both `xargs` and `find ... -exec` can be used to execute commands on items found by `find`, but they work in different ways and are better suited for different scenarios. Here are some considerations to help you decide when to use each:
+Both `xargs` and `find ... -exec` can be used to execute commands on the output from `find`, but they work in different ways, and each one is better suited to particular scenarios.
 
 ### xargs
 
