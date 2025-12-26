@@ -204,20 +204,10 @@ When chaining commands `<cmd1>` and `<cmd2>, if <cmd2> acts on stdin, you can us
 
 Both `xargs` and `find ... -exec` can be used to execute commands on the output from `find`, but they work in different ways, and each one is better suited to particular scenarios.
 
-### xargs
+The following are some of the advantages that `xargs` over `find...-exec`:
 
-1. **Batch Execution**: `xargs` can pass a large number of arguments to a single command invocation, which can make it faster for commands that are expensive to start up.
-    
-2. **Flexibility**: `xargs` is a separate utility that can be used with any command that reads from standard input. It's not tied to `find`, so you can use it in a wider variety of contexts.
-    
-3. **Delimiter Support**: With `-0` or `-d`, `xargs` can handle filenames or arguments that contain spaces, newlines, or other special characters.
-    
-4. **Error Handling**: `xargs` has options for more complex error handling (`-P` for parallelism, `--arg-file`, etc.).
-    
-5. **Resource Limits**: `xargs` takes care of dividing the list into sublists small enough to be acceptable to the executed command, respecting the system's command-line length limit.
-    
-6. **Custom Formatting**: You can use `xargs` to insert arguments at specific positions in the command line using the `-I` flag.
-    
+- **Batch execution**: It can pass a large number of arguments to a single command invocation, which can be more efficient for commands that are expensive to start up.
+- **Resource Limits**: It divides the list of arguments into sublists small enough to be acceptable to the executed command, respecting the system's command-line length limit.
 
 ### find ... -exec
 
