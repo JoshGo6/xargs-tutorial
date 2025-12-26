@@ -2,24 +2,12 @@
 
 This article contains the following topics:
 
-- [xargs](#xargs)
-    - [Options](#Options)
-    - [Delimiters, word splitting, and special characters](#Delimiters,%20word%20splitting,%20and%20special%20characters)
-    - [Splitting, Batching and Invocations](#Splitting,%20Batching%20and%20Invocations)
-    - [Examples](#Examples)
-    - [Finding out what xargs is running](#Finding%20out%20what%20xargs%20is%20running)
-    - [xargs with shell builtins](#xargs%20with%20shell%20builtins)
-- [exec](#exec)
-- [`xargs` vs `-exec`](#`xargs`%20vs%20`-exec`)
-	- [xargs](#xargs)
-	- [find ... -exec](#find%20...%20-exec)
-	- [Summary](#Summary)
 
-This article explains when to use each of the following strategies when one command acts on the output of the following command:
+When one command acts on the output of the previous command and using a plain pipe won't work or is undesirable for some reason, you can chain the commands together using `xargs`. If the first command is `find`, you can use `find...-exec`. This tutorial dives into both approaches and also compares them.
 
-- `xargs
-- `exec 
-- piping
+This tutorial contains the following topics: 
+
+
 
 ## xargs
 
