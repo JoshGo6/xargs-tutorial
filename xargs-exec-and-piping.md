@@ -39,15 +39,7 @@ $ tar -tvf test.tar
 
 After the TAR file is created, we used `tar -tvf test.tar` to list the contents of the TAR file.
 
-The rest of the examples show additional options that can be used with `xargs` to control splitting, batching, and invocation. Many of the examples are constructed from the file `raven.txt`, which contains the first few lines from the poem "The Raven."
-
-```consolte-session
-$ cat raven.txt 
-Once upon a midnight dreary, while I pondered, weak and weary,
-Over many a quaint and curious volume of forgotten lore,
-While I nodded, nearly napping, suddenly there came a tapping,
-As of some one gently rapping, rapping at my chamber door. “
-```
+The rest of the examples show additional options that can be used with `xargs` to control splitting and batching of the input stream, as well as parallel processing.
 
 **Create a TAR from files with internal spaces**
 
