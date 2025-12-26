@@ -24,8 +24,6 @@ In the first form, `xargs` appends the piped input after `command2`. If you need
 > 
 >  - Use the `-print0` option with `find`, and the `-0` option with `xargs` to ensure that `xargs` doesn't break an output from `find` on spaces or newline characters.
 >  - Use the `print0` option with `find`, and the `-d '\0'` option with `xargs`. 
-> 
-> The examples in [Examples](#Examples) illustrate this and other options.
 
 ## Dividing the input stream into arguments
 
