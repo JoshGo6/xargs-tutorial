@@ -7,7 +7,7 @@ When one command acts on the output of the previous command and using a plain pi
 
 This tutorial contains the following topics: 
 
-## Introduction
+## Introduction and basic syntax
 
 Sometimes commands cannot or shouldn't operate on stdin, so simply piping output from one command to the next doesn't work. When you need to position the output of one command into a particular place in another command, you can use `xargs` in conjunction with a pipe. 
 
@@ -19,31 +19,6 @@ Invoke `xargs` by choosing one of the following two syntaxes:
 ```
 
 In the first form, `xargs` appends the piped input after `command2`. If you need the output to be put somewhere else, or if you need it to be used multiple times, use the second form, which contains the replacement token, `{}`. When `<command2>` is run, `xargs` replaces `{}` with the output from `<command1>`.
-
-> A very common use case is `find ... | xargs`. By default, `find` separates its outputs with new lines (`\n`). Also by default, `xargs` interprets unquoted spaces and newline characters as delimiters. If your output from `find` contains spaces, you have several options:
-> 
->  - Use the `-print0` option with `find`, and the `-0` option with `xargs` to ensure that `xargs` doesn't break an output from `find` on spaces or newline characters.
->  - Use the `print0` option with `find`, and the `-d '\0'` option with `xargs`. 
-
-## Dividing the input stream into arguments
-
-`xargs` performs both splitting and batching of arguments. *Splitting* refers to how `xargs` divides stdin into individual arguments.  `xargs` splits arguments based on new lines and spaces. If you wish to retain this default behavior, as with other commands, you can use quotes around arguments that contain internal spaces.
-
-So far, we've spoken about the default splitting behavior that's used to divide the input stream into arguments. As an example of this default, `"file1 file2 file3"` gets split into 3 arguments by default. You can change this by splitting, though, by specifying a delimiter other than whitespace.
-
-When you change the delimiter from the default (whitespace) to something else like newline (but not a simple space) or null or a different character, `xargs` doesn't interpret quotes as special characters. Instead, they're treated as literals, and spaces are considered part of the argument (since something else is now the delimiter).
-
-In the examples, we'll show how to change the default splitting behavior.
-
-## Using batching to control how many arguments are passed
-
-While splitting determines exactly what each argument is (and therefore the total number of arguments, by specifying the delimiter), *batching* refers to how many of the arguments `xargs` passes to each command invocation. Depending on the options you choose, after splitting `file1 file2 file3` into 3 arguments, `xargs` could run any of the following:
-
-- `command file1 file2 file3` (all 3 in one batch)
-- `command file1`, then `command file2`, then `command file3` (one file per batch)
-- `command file1 file2`, then `command file3`
-
-The default batching behavior is to provide as many arguments as possible to the second command. In the examples, we'll show how to change the default batching behavior.
 
 ## Examples
 
