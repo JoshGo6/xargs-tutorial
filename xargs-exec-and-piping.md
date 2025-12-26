@@ -7,9 +7,7 @@ When one command acts on the output of the previous command and using a plain pi
 
 This tutorial contains the following topics: 
 
-
-
-## xargs
+## Introduction
 
 Sometimes commands cannot or shouldn't operate on stdin, so simply piping output from one command to the next doesn't work. When you need to position the output of one command into a particular place in another command, you can use `xargs` in conjunction with a pipe. 
 
@@ -29,7 +27,7 @@ In the first form, `xargs` appends the piped input after `command2`. If you need
 > 
 > The examples in [Examples](#Examples) illustrate this and other options.
 
-### Constructing arguments through splitting and delimiters
+## Dividing the input stream into arguments
 
 `xargs` performs both splitting and batching of arguments. *Splitting* refers to how `xargs` divides stdin into individual arguments.  `xargs` splits arguments based on new lines and spaces. If you wish to retain this default behavior, as with other commands, you can use quotes around arguments that contain internal spaces.
 
@@ -39,7 +37,7 @@ When you change the delimiter from the default (whitespace) to something else li
 
 In the examples, we'll show how to change the default splitting behavior.
 
-### Controlling the number of arguments via batching
+## Using batching to control how many arguments are passed
 
 While splitting determines exactly what each argument is (and therefore the total number of arguments, by specifying the delimiter), *batching* refers to how many of the arguments `xargs` passes to each command invocation. Depending on the options you choose, after splitting `file1 file2 file3` into 3 arguments, `xargs` could run any of the following:
 
@@ -49,11 +47,7 @@ While splitting determines exactly what each argument is (and therefore the tota
 
 The default batching behavior is to provide as many arguments as possible to the second command. In the examples, we'll show how to change the default batching behavior.
 
-### Invoking the `xargs` command in parallel
-
-**Invocations** refers to how many commands `xargs` will run in parallel, which is determined by the optional `-P` parameter. By default, xargs Invokes its command one time before invoking it again.
-
-### Examples
+## Examples
 
 A typical use of `xargs` involves taking the output of `find` and piping it to another command, as in the following example, where we create an archive file and then verify its contents:
 
@@ -175,7 +169,7 @@ six seven eight nine ten
 eleven twelve
 ```
 
-### Options
+## Options
 
 The following list summarizes the frequently used options with `xargs`:
 
@@ -209,7 +203,7 @@ The following are some of the advantages that `xargs` over `find...-exec`:
 - **Batch execution**: It can pass a large number of arguments to a single command invocation, which can be more efficient for commands that are expensive to start up.
 - **Resource Limits**: It divides the list of arguments into sublists small enough to be acceptable to the executed command, respecting the system's command-line length limit.
 
-### find ... -exec
+ find ... -exec:
 
 1. **Simplicity**: `-exec` is simpler to use for straightforward tasks and avoids a pipeline, making it easier to read and understand for simple use-cases.
     
