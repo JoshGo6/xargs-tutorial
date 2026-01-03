@@ -47,9 +47,9 @@ After the TAR file is created, we used `tar -tvf test.tar` to list the contents 
 
 The rest of the examples show additional options that can be used with `xargs` to control splitting and batching of the input stream, as well as parallel processing.
 
-**Create a TAR from files with internal spaces**
+### Ignore internal spaces in arguments
 
-In the following example, the user creates a TAR file from files that have internal spaces in their filenames. There are at least two different ways to do this. This method uses `-print0` and `0`.
+In the following example, the user creates a TAR file from files that have internal spaces in their filenames. There are at least two different ways to do this. This method uses `-print0` and `-0`.
 
 ```shell-console
 $ ls
@@ -66,7 +66,7 @@ $ tar tvf test.tar
 -rw-rw-r-- josh/josh    896583 2025-12-23 16:04 ./3.jpg
 ```
 
-**Specify a delimiter**
+This is a typical way to handle arguments with spaces in the name, where you use `find` with `print0` to separate the arguments with a null character instead of a new line, and you use the `-0` option with `xarsg` to indicate to `xargs` that input should be split on the null character, instead of white space or new lines.
 
 In the following example, we specify a delimiter, `#` to split on:
 
