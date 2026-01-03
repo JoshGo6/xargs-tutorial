@@ -126,9 +126,9 @@ one two three four five six
 seven eight nine ten eleven twelve
 ```
 
-**Specify the maximum number of inputs**
+### Specify the maximum number of inputs
 
-In this example, we use `-n5` to specify that a maximum of five arguments can be passed to `echo` at once:
+In this example, we use `-n5` to specify that a maximum of five arguments can be passed to each invocation of `echo` :
 
 ```shell-console
 $ cat file.txt
