@@ -1,4 +1,4 @@
-# xargs, exec, and piping
+# `xargs`, `exec`, and piping
 
 When one command acts on the output of the previous command and using a plain pipe won't work or is undesirable for some reason, you can chain the commands together using `xargs`. In the special that case that the first command is `find`, however, you can use a different approach which is specific to that command: `find...-exec`. This tutorial dives into both approaches and also compares them.
 
