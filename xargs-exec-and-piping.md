@@ -6,6 +6,13 @@ This tutorial contains the following topics:
 
 - [Introduction and basic syntax](#Introduction%20and%20basic%20syntax)
 - [Examples](#Examples)
+  - [A basic example: archive files](#A%20basic%20example%20archive%20files)
+  - [Ignore internal spaces in arguments](#Ignore%20internal%20spaces%20in%20arguments)
+  - [Specify a delimiter](#Specify%20a%20delimiter)
+  - [Process all arguments in a single line of output](#Process%20all%20arguments%20in%20a%20single%20line%20of%20output)
+  - [Process all arguments in a specified number of lines of input](#Process%20all%20arguments%20in%20a%20specified%20number%20of%20lines%20of%20input)
+  - [Specify the maximum number of inputs](#Specify%20the%20maximum%20number%20of%20inputs)
+  - [Specify the maximum number of parallel processes](#Specify%20the%20maximum%20number%20of%20parallel%20processes)
 - [Options](#Options)
 - [`xargs` vs `find...-exec`](#`xargs`%20vs%20`find...-exec`)
 
