@@ -68,10 +68,12 @@ $ tar tvf test.tar
 
 This is a typical way to handle arguments with spaces in the name, where you use `find` with `print0` to separate the arguments with a null character instead of a new line, and you use the `-0` option with `xarsg` to indicate to `xargs` that input should be split on the null character, instead of white space or new lines.
 
-In the following example, we specify a delimiter, `#` to split on:
+### Specify a delimiter
+
+In the following example, we specify the delimiter `#` on which to split the input stream, where each argument is sandwiched between two `#` delimiters:
 
 ```shell-console
-j$ cat file.txt 
+$ cat file.txt 
 one#two#three#four#five
 $ cat file.txt | xargs -d '#' echo
 one two three four five
@@ -79,7 +81,7 @@ one two three four five
 $ 
 ```
 
-Note that `xargs` output a trailing blank line because the last argument was actually `five\n`.
+Note that `xargs` outputs a trailing blank line because the last argument was actually `five\n`.
 
 **Process all arguments in a single line of output**
 
