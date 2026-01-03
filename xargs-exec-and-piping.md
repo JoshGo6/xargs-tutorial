@@ -157,22 +157,25 @@ The following list summarizes the frequently used options with `xargs`:
 
 - `-t`   Print each command prior to execution
 - `-p`   Ask for confirmation prior to execution
-- `-0`   Treat null character as the end-of-argument character, instead of whitespace. When using this option with `xargs` on the output of `find`, you need to use `-print0` with the preceding `find` command. See [[Finding files/Find & xargs with spaces in file names]]. This is mutually exclusive with `-I`.
+- `-0`   Treat null character as the end-of-argument character, instead of whitespace. When using this option with `xargs` on the output of `find`, you need to use `-print0` with the preceding `find` command. This option is mutually exclusive with `-I`. For an example, see [Ignore internal spaces in arguments](#Ignore%20internal%20spaces%20in%20arguments).
 - `-d`   Specify the delimiter between entries. For example, since output from `ls` is delimited by `\n`, to properly process those files, use `xargs -d '\n' ...`. 
 
     This option implies that quotes are interpreted literally, instead of as special characters. Also, you can only use a single-byte character like a single letter or an escape sequence (such as `\n`) if you use this option. You can also use an octal or hex escape code for the delimiter, so the following are equivalent: 
     
     `find ... -print0 | xargs -0 ...`  
     `find ... -print0 | xargs -d '\0'...`     
+    
+     For an example, see [Specify a delimiter](#Specify%20a%20delimiter).  
      
-- `-I {}` Replace the replacement string (specified here as `{}`, though it can be something else) with values from stdin. This allows placement of stdin at a place of your choosing, instead of as the last portion of the built-up command. When this option is used, unquoted blanks aren't interpreted as the dellimiter. Instead, the newline (**not the null charactere**) is the delimiter, which means that in the following example, `cmd2` is fed all arguments on one line of output from `cmd1` per invocation of `cmd2`, and during execution time, `{}` is replaced with output from `cmd1`:  
+- `-I {}` Replace the replacement string (specified here as `{}`, though it can be something else) with values from stdin. This allows placement of stdin at a place of your choosing, instead of as the last portion of the built-up command. When this option is used, unquoted blanks aren't interpreted as the delimiter. Instead, the newline (**not the null character**) is the delimiter, which means that in the following example, `<cmd2>` is fed all arguments on one line of output from `<cmd1>` per invocation of `<cmd2>`, and during execution time, `{}` is replaced with stdout from `<cmd1>`:  
       
       `<cmd1> ... | xargs -I{} <cmd2> [options] {}`  
     
-    This is mutually exclusive with `-0`.
-- `-P <max-procs>`   Run up to `max-procs` commands in parallel. Use `-P 0` to run as many processes as possible simultaneously. Example: `find . -name "*.txt" | xargs -P 4 gzip` compresses 4 files at once.
-- `-L <n-lines>`   Pass at most `<n-lines>` of non-blank input lines to each command invocation. You can use this to limit the number of lines of input that an invocation of a command processes. For instance, `cat urls.txt | xargs -L 1 curl` only allows `curl` to process one line from at a time from `urls.txt`. This is mutually exclusive with `-n`.
-- `-n <max-args>`   Pass at most `<max-args>` arguments to each command invocation. This controls batching by argument count, instead of by line count. Mutually exclusive with `-L` (last one specified takes effect). Example: `echo "1 2 3 4 5 6" | xargs -n 2 echo` outputs three pairs of numbers.
+    This option is mutually exclusive with `-0`. For an example, see [Process all arguments in a single line of output](#Process%20all%20arguments%20in%20a%20single%20line%20of%20output).  
+        
+- `-P <max-procs>`   Run up to `max-procs` commands in parallel. Use `-P 0` to run as many processes as possible simultaneously. For an example, see [Specify the maximum number of parallel processes](#Specify%20the%20maximum%20number%20of%20parallel%20processes).  
+- `-L <n-lines>`   Pass at most `<n-lines>` of non-blank input lines to each command invocation. You can use this to split input on a particular number of lines of output from the previous command. This is mutually exclusive with `-n`. For an example, see [Process all arguments in a specified number of lines of input](#Process%20all%20arguments%20in%20a%20specified%20number%20of%20lines%20of%20input).  
+- `-n <max-args>`   Pass at most `<max-args>` arguments to each command invocation. This controls batching by argument count, instead of by line count. This option is mutually exclusive with `-L`. For an example, see [Specify the maximum number of inputs](#Specify%20the%20maximum%20number%20of%20inputs).  
 
 ## `xargs` vs `find...-exec`
 
