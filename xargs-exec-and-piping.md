@@ -24,6 +24,10 @@ In the first form, `xargs` appends stdout from `<command1>` after `command2`. If
 
 ## Examples
 
+The following examples show commonly used options in `xargs`. These options can be used to control how the input stream is split into arguments, specify the number of arguments that are passed to a command from the input stream, and how many times to invoke a command in parallel.
+
+### A basic example: archive files
+
 A typical use of `xargs` involves taking the output of `find` and piping it to another command, as in the following example, where we create an archive file and then verify its contents:
 
 ```shell-session
