@@ -83,9 +83,9 @@ $
 
 Note that `xargs` outputs a trailing blank line because the last argument was actually `five\n`.
 
-**Process all arguments in a single line of output**
+### Process all arguments in a single line of output
 
-By default, `xargs` splits on whitespace but will still feed all of the arguments to the command that comes after it, as in this example:
+By default, `xargs` splits on whitespace but will still feed all of the arguments at once to the command that comes after it, as in this example:
 
 ```shell-console
 $ cat file.txt
@@ -109,7 +109,7 @@ four five six
 seven eight nine
 ```
 
-Just as with the original `cat` command, now that we used `-I`, each line of the file becomes one argument to `echo`, instead of the file being split on regular whitespace characters.
+Now that we used `-I`, each invocation of `echo` is provided one line from `file.txt`, instead of the whole file.
 
 **Process all arguments in a specified number of lines of input**
 
