@@ -142,6 +142,15 @@ six seven eight nine ten
 eleven twelve
 ```
 
+
+### Specify the maximum number of parallel processes
+
+So far, we've shown how to split the input stream into arguments, and how to specify which arguments are given to a command via `xargs`. In each of these cases, though, we've only invoked a command once, and when it finishes, `xargs` invokes it again with the next portion of the input stream. Now we'll invoke the command multiple times in parallel, using the `-P` option, as shown in the following example, where we run `gzip` up to 10 times in parallel, each time that `xargs` runs it:
+
+```shell-console
+find . -type f -print0 | xargs -0 -P 10 gunzip
+```
+
 ## Options
 
 The following list summarizes the frequently used options with `xargs`:
