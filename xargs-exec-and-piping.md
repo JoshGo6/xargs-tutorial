@@ -1,10 +1,6 @@
 # xargs, exec, and piping
 
-This article contains the following topics:
-
-
-
-When one command acts on the output of the previous command and using a plain pipe won't work or is undesirable for some reason, you can chain the commands together using `xargs`. If the first command is `find`, you can use `find...-exec`. This tutorial dives into both approaches and also compares them.
+When one command acts on the output of the previous command and using a plain pipe won't work or is undesirable for some reason, you can chain the commands together using `xargs`. In the special that case that the first command is `find`, however, you can use a different approach which is specific to that command: `find...-exec`. This tutorial dives into both approaches and also compares them.
 
 This tutorial contains the following topics: 
 
@@ -17,14 +13,14 @@ This tutorial contains the following topics:
 
 Sometimes commands cannot or shouldn't operate on stdin, so simply piping output from one command to the next doesn't work. When you need to position the output of one command into a particular place in another command, you can use `xargs` in conjunction with a pipe. 
 
-Invoke `xargs` by choosing one of the following two syntaxes: 
+Invoke `xargs` by choosing one of the following two forms: 
 
 ```bash
 <command1> | xargs <command2> # First form
 <command1> | xargs -I {} <command2> {} # Second form
 ```
 
-In the first form, `xargs` appends the piped input after `command2`. If you need the output to be put somewhere else, or if you need it to be used multiple times, use the second form, which contains the replacement token, `{}`. When `<command2>` is run, `xargs` replaces `{}` with the output from `<command1>`.
+In the first form, `xargs` appends stdout from `<command1>` after `command2`. If you need the output to be put somewhere else, or if you need it to be used multiple times, use the second form, which contains the replacement token, `{}`. When `<command2>` is run, `xargs` replaces `{}` with stdout from `<command1>`.
 
 ## Examples
 
