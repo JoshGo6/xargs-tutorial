@@ -111,7 +111,7 @@ seven eight nine
 
 Now that we used `-I`, each invocation of `echo` is provided one line from `file.txt`, instead of the whole file.
 
-**Process all arguments in a specified number of lines of input**
+### Process all arguments in a specified number of lines of input
 
 We previously looked at using `xargs` to pass all arguments in a line of output at once. Instead of using `-I`, you can use `-L` to pass all arguments in a specified number of lines to a command, as in the following example, which feeds two lines of text at a time as a single argument to `echo`:
 
