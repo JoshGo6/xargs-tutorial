@@ -179,27 +179,17 @@ The following list summarizes the frequently used options with `xargs`:
 
 ## `xargs` vs `find...-exec`
 
-When chaining commands `<cmd1>` and `<cmd2>, if <cmd2> acts on stdin, you can use a simple pipe, ` as in `<cmd1> | <cmd2>`. When `<cmd2>` takes a positional argument, instead of acting on stdin, you can use `xargs`. An example is `mv`, which requires you to first specify a source, and then a destination. 
-
 Both `xargs` and `find ... -exec` can be used to execute commands on the output from `find`, but they work in different ways, and each one is better suited to particular scenarios.
 
-The following are some of the advantages that `xargs` over `find...-exec`:
+The following are some of the advantages of `xargs` over `find...-exec`:
 
-- **Batch execution**: It can pass a large number of arguments to a single command invocation, which can be more efficient for commands that are expensive to start up.
-- **Resource Limits**: It divides the list of arguments into sublists small enough to be acceptable to the executed command, respecting the system's command-line length limit.
+- **Batch execution**: `xargs` can pass a large number of arguments to a single command invocation, which can be more efficient for commands that are expensive to start up.
+- **Resource Limits**: `xargs` divides the list of arguments into groups small enough to be acceptable to the executed command, respecting the system's command-line length limit.
 
- find ... -exec:
+The following are advantages of using `find ... -exec` instead of `xargs`:
 
-1. **Simplicity**: `-exec` is simpler to use for straightforward tasks and avoids a pipeline, making it easier to read and understand for simple use-cases.
-    
-2. **Atomicity**: When using `find ... -exec`, the whole operation is a single process, which can be easier to manage and terminate.
-    
-3. **Safety**: The `-exec` command works more predictably with filenames that contain spaces, newlines, or other special characters, without the need for additional options like `-0` with `xargs`.
-    
-4. **Per-File Operations**: If you're performing an operation that must be executed separately for each file, `find ... -exec` can often be clearer and easier.
-    
-5. **Built-in to `find`**: Since it's a built-in action for `find`, you don't need to worry about compatibility between two separate commands.
-    
-6. **Command Chaining**: `find`'s `-exec` can be combined with other `find` options and tests more naturally.
+-  **Simplicity**: `-exec` is simpler to use for straightforward tasks and avoids a pipeline, making it easier to read and understand for simple use-cases.
+- **Single process**: When using `find ... -exec`, the whole operation is a single process, which can be easier to manage and terminate.
+- **Safety**: When filenames contain spaces, newlines, or other special characters, unlike `xargs`, `-exec` doesn't need additional options to handle these files. You just use it as you would with files without spaces.
 
 
