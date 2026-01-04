@@ -190,13 +190,13 @@ Both `xargs` and `find ... -exec` can be used to execute commands on the output 
 
 The following are some of the advantages of `xargs` over `find...-exec`:
 
-- **Batch execution**: `xargs` can pass a large number of arguments to a single command invocation, which can be more efficient for commands that are expensive to start up.
-- **Resource Limits**: `xargs` divides the list of arguments into groups small enough to be acceptable to the executed command, respecting the system's command-line length limit.
+- **Batch execution**: `xargs` can pass a large number of arguments to a single command invocation, which can be more efficient for commands that utilize a significant amount of resources upon starting up.
+- **Resource limits**: `xargs` divides the list of arguments into groups small enough to be acceptable to the executed command, respecting the system's command-line length limit.
 
 The following are advantages of using `find ... -exec` instead of `xargs`:
 
--  **Simplicity**: `-exec` is simpler to use for straightforward tasks and avoids a pipeline, making it easier to read and understand for simple use-cases.
+- **Readability**: There's no pipe, making it easier to read for simple use-cases.
 - **Single process**: When using `find ... -exec`, the whole operation is a single process, which can be easier to manage and terminate.
-- **Safety**: When filenames contain spaces, newlines, or other special characters, unlike `xargs`, `-exec` doesn't need additional options to handle these files. You just use it as you would with files without spaces.
+- **Safety**: Even when filenames contain spaces, newlines, or other special characters, `-exec` doesn't need additional options to handle these files. You just use it normally. `xargs`, on the other hand, requires additional options in these situations.
 
 
