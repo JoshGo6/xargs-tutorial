@@ -161,9 +161,9 @@ find . -type f -print0 | xargs -0 -P 10 gunzip
 
 The following list summarizes the frequently used options with `xargs`:
 
-- `-t`   Print each command prior to execution
-- `-p`   Ask for confirmation prior to execution
-- `-0`   Treat null character as the end-of-argument character, instead of whitespace. When using this option with `xargs` on the output of `find`, you need to use `-print0` with the preceding `find` command. This option is mutually exclusive with `-I`. For an example, see [Ignore internal spaces in arguments](#Ignore%20internal%20spaces%20in%20arguments).
+- `-t`   Print each command prior to execution.
+- `-p`   Ask for confirmation prior to execution.
+- `-0`   Treat a null character as an end-of-argument character, instead of treating it as white space . When using this option with `xargs` on the output of `find`, you need to use `-print0` with the preceding `find` command. This option is mutually exclusive with `-I`. For an example, see [Ignore internal spaces in arguments](#Ignore%20internal%20spaces%20in%20arguments).
 - `-d`   Specify the delimiter between entries. For example, since output from `ls` is delimited by `\n`, to properly process those files, use `xargs -d '\n' ...`. 
 
     This option implies that quotes are interpreted literally, instead of as special characters. Also, you can only use a single-byte character like a single letter or an escape sequence (such as `\n`) if you use this option. You can also use an octal or hex escape code for the delimiter, so the following are equivalent: 
