@@ -73,7 +73,7 @@ $ tar tvf test.tar
 -rw-rw-r-- josh/josh    896583 2025-12-23 16:04 ./3.jpg
 ```
 
-This is a typical way to handle arguments with spaces in the name, where you use `find` with `print0` to separate the arguments with a null character instead of a new line, and you use the `-0` option with `xarsg` to indicate to `xargs` that input should be split on the null character, instead of white space or new lines.
+This is a typical way to handle arguments with spaces in the name, where you use `find` with `print0` to separate the arguments with a null character instead of a new line, and you use the `-0` option with `xargs` to indicate that input should be split on the null character, instead of on white space or new lines.
 
 ### Specify a delimiter
 
