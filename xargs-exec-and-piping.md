@@ -77,7 +77,7 @@ This is a typical way to handle arguments with spaces in the name, where you use
 
 ### Specify a delimiter
 
-In the following example, we specify the delimiter `#` on which to split the input stream, where each argument is sandwiched between two `#` delimiters:
+In the following example, we specify the delimiter `#` on which to split the input stream, where each argument except the final one is sandwiched between two `#` delimiters:
 
 ```shell-console
 $ cat file.txt 
@@ -85,7 +85,6 @@ one#two#three#four#five
 $ cat file.txt | xargs -d '#' echo
 one two three four five
 
-$ 
 ```
 
 Note that `xargs` outputs a trailing blank line because the last argument was actually `five\n`.
