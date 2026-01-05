@@ -185,17 +185,17 @@ The following list summarizes the frequently used options with `xargs`:
 
 ## `xargs` vs `find...-exec`
 
-Both `xargs` and `find ... -exec` can be used to execute commands on the output from `find`, but they work in different ways, and each one is better suited to particular scenarios.
+When the first command used is `find`, you have two options for executing the second command. You can either execute the second command in conjunction with `xargs`, or you can execute the second command using the `-exec` option that follows `find`. Each approach has advantages particular to specific use cases.
 
-The following are some of the advantages of `xargs` over `find...-exec`:
+`xargs` has the following advantages over `find...-exec`:
 
-- **Batch execution**: `xargs` can pass a large number of arguments to a single command invocation, which can be more efficient for commands that utilize a significant amount of resources upon starting up.
+- **Batching**: `xargs` can pass a large number of arguments to a single command invocation. This may run faster than when using `find` for commands that are CPU-intensive when starting up.
 - **Resource limits**: `xargs` divides the list of arguments into groups small enough to be acceptable to the executed command, respecting the system's command-line length limit.
 
-The following are advantages of using `find ... -exec` instead of `xargs`:
+`find...-exec` has the following advantages over `xargs`:
 
-- **Readability**: There's no pipe, making it easier to read for simple use-cases.
-- **Single process**: When using `find ... -exec`, the whole operation is a single process, which can be easier to manage and terminate.
-- **Safety**: Even when filenames contain spaces, newlines, or other special characters, `-exec` doesn't need additional options to handle these files. You just use it normally. `xargs`, on the other hand, requires additional options in these situations.
+- **Readability**: There's no pipe, making the two commands easier to read for simple cases.
+- **Single process**: The whole operation is a single process, which can be easier to manage and terminate.
+- **Safety**: Even when filenames contain spaces, newlines, or other special characters, `-exec` doesn't need additional options to handle these files properly. You just use it as you would in any other case.
 
 
