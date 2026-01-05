@@ -1,6 +1,6 @@
-# `xargs`, `exec`, and piping
+# How to use `xargs`
 
-When one command acts on the output of the previous command and using a plain pipe won't work or is undesirable for some reason, you can chain the commands together using `xargs`. In the special that case that the first command is `find`, however, you can use an alternative approach: the `find` command with the `-exec` option. This tutorial shows how to use `xargs`, including common options that control input splitting, batching, and parallel execution. Towards the end of the tutorial, we compare `xargs` and `find...-exec` in the case where you have the option to use either approach.
+When one command acts on the output of the previous command and using a plain pipe won't work or is undesirable for some reason, you can chain the commands together using `xargs`. In the special case that the first command is `find`, however, you can use an alternative approach: the `find` command with the `-exec` option. This tutorial shows how to use `xargs`, including common options that control input splitting, batching, and parallel execution. Towards the end of the tutorial, we compare `xargs` and `find...-exec` in the special case where you have the option to use either approach.
 
 This tutorial contains the following topics: 
 
