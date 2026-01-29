@@ -38,7 +38,7 @@ The following examples show commonly used options in `xargs`. These options can 
 
 A typical use of `xargs` involves taking the output of `find` and piping it to another command, as in the following example, where we create an archive file and then verify its contents:
 
-```shell-session
+```shellsession
 $ ls
 1.jpg  2.jpg  3.jpg  4.pdf
 $ find . -type f | xargs tar -cf test.tar
@@ -59,7 +59,7 @@ The rest of the examples show additional options that can be used with `xargs` t
 
 In the following example, the user creates a TAR file from files that have internal spaces in their filenames. There are at least two different ways to do this. This method uses `-print0` and `-0`.
 
-```shell-console
+```shellsession
 $ ls
 1.jpg   2.jpg   3.jpg   4.pdf  'one file.jpg'  'second file.jpg'
 $ find . -type f -print0 | xargs -0 tar -cf test.tar
@@ -80,7 +80,7 @@ This is a typical way to handle arguments with spaces in the name, where you use
 
 In the following example, we specify the delimiter `#` on which to split the input stream, where each argument except the final one is sandwiched between two `#` delimiters:
 
-```shell-console
+```shellsession
 $ cat file.txt 
 one#two#three#four#five
 $ cat file.txt | xargs -d '#' echo
@@ -94,7 +94,7 @@ Note that `xargs` outputs a trailing blank line because the last argument was ac
 
 By default, `xargs` splits on whitespace but will still feed all of the arguments at once to the command that comes after it, as in this example:
 
-```shell-console
+```shellsession
 $ cat file.txt
 one two three
 four five six
@@ -105,7 +105,7 @@ one two three four five six seven eight nine
 
 If you use the `-I {}` option, however, `echo` is now given one line of inputs at a time to process, as in the following example:
 
-```shell-console
+```shellsession
 $ cat file.txt
 one two three
 four five six
@@ -122,7 +122,7 @@ Now that we used `-I`, each invocation of `echo` is provided one line from `file
 
 We previously looked at using `xargs` to pass all arguments in a line of output at once. Instead of using `-I`, you can use `-L` to pass all arguments in a specified number of lines to a command, as in the following example, which feeds two lines of text at a time as a single argument to `echo`:
 
-```shell-console
+```shellsession
 $ cat file.txt
 one two three
 four five six
@@ -137,7 +137,7 @@ seven eight nine ten eleven twelve
 
 In this example, we use `-n5` to specify that a maximum of five arguments can be passed to each invocation of `echo` :
 
-```shell-console
+```shellsession
 $ cat file.txt
 one two three
 four five six
@@ -154,7 +154,7 @@ eleven twelve
 
 So far, we've shown how to split the input stream into arguments, and how to specify which arguments are given to a command via `xargs`. In each of these cases, though, we've only invoked a command once, and when it finishes, `xargs` invokes it again with the next portion of the input stream. Now we'll invoke the command multiple times in parallel, using the `-P` option, as shown in the following example, where we run `gzip` up to 10 times in parallel, each time that `xargs` runs it:
 
-```shell-console
+```shellsession
 find . -type f -print0 | xargs -0 -P 10 gunzip
 ```
 
@@ -162,7 +162,7 @@ find . -type f -print0 | xargs -0 -P 10 gunzip
 
 Most often, you're likely to use `xargs` with `-I {}`, since this gives you the flexibility to use stdin at an arbitrary place of your choosing, when you build up your command. The tradeoff is that when you do this, each invocation of the command processes only one line of stdin, as in the following example, where we use the `-p` option for confirmation, so we can see exactly what `xargs` is about to execute:
 
-```shell-session
+```shellsession
 $ find ~/Downloads/ -type f -mtime -1 | xargs -I {} -p mv {} ~/Downloads/old-files/
 mv /home/josh/Downloads/01-28-2026.pdf /home/josh/Downloads/old-files/?...n
 mv '/home/josh/Downloads/01-28-2026 (Copy 2).pdf' /home/josh/Downloads/old-files/?...n
