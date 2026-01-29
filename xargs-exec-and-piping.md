@@ -186,11 +186,11 @@ The following list summarizes the frequently used options with `xargs`:
     
      For an example, see [Specify a delimiter](#Specify%20a%20delimiter).  
      
-- `-I {}` Replace the replacement string (specified here as `{}`, though it can be something else) with values from stdin. This allows placement of stdin at a place of your choosing, instead of as the last portion of the built-up command. When this option is used, unquoted blanks aren't interpreted as the delimiter. Instead, the newline (**not the null character**) is the delimiter, which means that in the following example, `<cmd2>` is fed all arguments on one line of output from `<cmd1>` per invocation of `<cmd2>`, and during execution time, `{}` is replaced with stdout from `<cmd1>`:  
+- `-I {}` Replace the replacement string (specified here as `{}`, though it can be something else) with values from stdin. This allows placement of stdin wherever you choose, instead of at the end of the command. When this option is used, unquoted blanks aren't interpreted as the delimiter. Instead, the newline (**not the null character**) is the delimiter, which means that in the following example, `<cmd2>` is fed all arguments on one line of output from `<cmd1>` per invocation of `<cmd2>`, and during execution time, `{}` is replaced with stdout from `<cmd1>`:  
       
       `<cmd1> ... | xargs -I{} <cmd2> [options] {}`  
     
-    This option is mutually exclusive with `-0`. For an example, see [Process all arguments in a single line of output](#Process%20all%20arguments%20in%20a%20single%20line%20of%20output).  
+    This option is mutually exclusive with `-0`, `-L`, and `-n`. For an example, see [Process all arguments in a single line of output](#Process%20all%20arguments%20in%20a%20single%20line%20of%20output).  
         
 - `-P <max-procs>`   Run up to `max-procs` commands in parallel. Use `-P 0` to run as many processes as possible simultaneously. For an example, see [Specify the maximum number of parallel processes](#Specify%20the%20maximum%20number%20of%20parallel%20processes).  
 - `-L <n-lines>`   Pass at most `<n-lines>` of non-blank input lines to each command invocation. You can use this to split input on a particular number of lines of output from the previous command. This is mutually exclusive with `-n`. For an example, see [Process all arguments in a specified number of lines of input](#Process%20all%20arguments%20in%20a%20specified%20number%20of%20lines%20of%20input).  
