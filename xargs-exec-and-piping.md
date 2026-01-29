@@ -13,6 +13,7 @@ This tutorial contains the following topics:
   - [Process all arguments in a specified number of lines of input](#Process%20all%20arguments%20in%20a%20specified%20number%20of%20lines%20of%20input)
   - [Specify the maximum number of inputs](#Specify%20the%20maximum%20number%20of%20inputs)
   - [Specify the maximum number of parallel processes](#Specify%20the%20maximum%20number%20of%20parallel%20processes)
+- [Batching tradeoffs with `-I`](#Batching%20tradeoffs%20with%20`-I`)
 - [Options](#Options)
 - [`xargs` vs `find...-exec`](#`xargs`%20vs%20`find...-exec`)
 
@@ -157,6 +158,18 @@ So far, we've shown how to split the input stream into arguments, and how to spe
 find . -type f -print0 | xargs -0 -P 10 gunzip
 ```
 
+## Batching tradeoffs with `-I`
+
+Most often, you're likely to use `xargs` with `-I {}`, since this gives you the flexibility to use stdin at an arbitrary place of your choosing, when you build up your command. The tradeoff is that when you do this, each invocation of the command processes only one line of stdin, as in the following example, where we use the `-p` option for confirmation, so we can see exactly what `xargs` is about to execute:
+
+```shell-session
+$ find ~/Downloads/ -type f -mtime -1 | xargs -I {} -p mv {} ~/Downloads/old-files/
+mv /home/josh/Downloads/01-28-2026.pdf /home/josh/Downloads/old-files/?...n
+mv '/home/josh/Downloads/01-28-2026 (Copy 2).pdf' /home/josh/Downloads/old-files/?...n
+mv '/home/josh/Downloads/01-28-2026 (Copy).pdf' /home/josh/Downloads/old-files/?...n
+```
+
+As you can see, only one `find` result is processed at a time, using this method. You can't use `-print0` with `-0` to force all arguments on to one line, since this option is incompatible with `-I`. Similarly, `-n` and `-L` are incompatible with `-I`, so your choices (if you want to use `xargs` instead of `find...-exec`) is to switch to a different form of `mv` which allows placement of the source at the end of the command so you can place all of the file names at the end of the command, or to have `mv` invoked as many times as there are files.
 ## Options
 
 The following list summarizes the frequently used options with `xargs`:
