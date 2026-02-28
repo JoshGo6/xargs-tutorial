@@ -13,6 +13,7 @@ This tutorial contains the following topics:
   - [Process all arguments in a specified number of lines of input](#Process%20all%20arguments%20in%20a%20specified%20number%20of%20lines%20of%20input)
   - [Specify the maximum number of inputs](#Specify%20the%20maximum%20number%20of%20inputs)
   - [Specify the maximum number of parallel processes](#Specify%20the%20maximum%20number%20of%20parallel%20processes)
+- [Using `xargs` with a shell builtin](#Using%20`xargs`%20with%20a%20shell%20builtin)
 - [Batching tradeoffs with `-I`](#Batching%20tradeoffs%20with%20`-I`)
 - [Options](#Options)
 - [`xargs` vs `find...-exec`](#`xargs`%20vs%20`find...-exec`)
@@ -158,6 +159,24 @@ So far, we've shown how to split the input stream into arguments, and how to spe
 find . -type f -print0 | xargs -0 -P 10 gunzip
 ```
 
+## Using `xargs` with a shell builtin
+
+When you run `xargs`, it can only access executables on disk. Simple programs like `cd` and `pwd` are shell builtins, so they don't exist as independent binaries. If you want to use a shell builtin in your `xargs` command, you need to first invoke a `sh` or `bash` session, as in the following example:
+
+```bash
+$ pwd
+/home/josh/Cloud Drive/Obsidian/Technical/LLM Instructions
+$ ls -l
+drwxrwxr-x 2 josh josh 4096 Feb 27 22:17 'Claude Skills'
+$ find . -type d -name "Claude*"| xargs -I {} bash -c "cd '{}' && pwd"
+/home/josh/Cloud Drive/Obsidian/Technical/LLM Instructions/Claude Skills
+```
+
+Note the following about this example:
+
+- We used `bash -c` since the command required the `cd` shell builtin.
+- The outer, double quotes prevent word splitting. They ensure that the entire argument `cd '{}' && pwd` is the argument given to `bash -c`.
+- The inner, single quotes prevent word splitting, too, since they ensure that `cd` receives the entire argument `./Claude Skills`, which has an internal space.
 ## Batching tradeoffs with `-I`
 
 Most often, you're likely to use `xargs` with `-I {}`, since this gives you the flexibility to use stdin at an arbitrary place of your choosing, when you build up your command. The tradeoff is that when you do this, each invocation of the command processes only one line of stdin, as in the following example, where we use the `-p` option for confirmation, so we can see exactly what `xargs` is about to execute:
