@@ -174,9 +174,10 @@ $ find . -type d -name "Claude*"| xargs -I {} bash -c "cd '{}' && pwd"
 
 Note the following about this example:
 
-- We used `bash -c` since the command required the `cd` shell builtin.
-- The outer, double quotes prevent word splitting. They ensure that the entire argument `cd '{}' && pwd` is the argument given to `bash -c`.
-- The inner, single quotes prevent word splitting, too, since they ensure that `cd` receives the entire argument `./Claude Skills`, which has an internal space.
+* `xargs` replaces `{}` with `./Claude Skills`. (The `{}` characters are the `xargs` replacement token, not Bash brace expansion.)
+* `bash -c` is required because `cd` is a shell builtin that `xargs` cannot invoke directly.
+* The double quotes ensure the entire command string is passed as a single argument to `bash -c`. Without them, the parent shell would interpret `&&` as separating two commands in the outer context.
+* The single quotes prevent the `bash -c` subprocess from word-splitting `./Claude Skills` (which contains a space) before passing it to `cd`.
 ## Batching tradeoffs with `-I`
 
 Most often, you're likely to use `xargs` with `-I {}`, since this gives you the flexibility to use stdin at an arbitrary place of your choosing, when you build up your command. The tradeoff is that when you do this, each invocation of the command processes only one line of stdin, as in the following example, where we use the `-p` option for confirmation, so we can see exactly what `xargs` is about to execute:
