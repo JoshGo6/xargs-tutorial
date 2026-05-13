@@ -31,6 +31,13 @@ Invoke `xargs` by choosing one of the following two forms:
 
 In the first form, `xargs` appends stdout from `<command1>` after `command2`. If you need the output to be put somewhere else, or if you need it to be used multiple times, use the second form, which contains the replacement token, `{}`. When `<command2>` is run, `xargs` replaces `{}` with stdout from `<command1>`.
 
+> [!tip]
+> To inspect what `xargs` will run without committing to running the command, use `p` (for prompt). This allows you to inspect what command will be run with the options that you're using. `xargs` shows you what it intends to run, and prompts you to confirm that you want to run it. Type `n` if the command isn't what you intend to run or if you just want to find out what would run, as the user in the following example did, where he wanted to see how `xargs` would handle word splitting: 
+> 
+> ```bash
+> ls -rt1 | tail -1 | xargs -p mv -t ../Cloud\ Drive/Apartments/ mv -t '../Cloud Drive/Apartments/' Renewal Lease.pdf?...n
+> ```
+
 ## Examples
 
 The following examples show commonly used options in `xargs`. These options can be used to control how the input stream is split into arguments, specify the number of arguments that are passed to a command from the input stream, and how many times to invoke a command in parallel.
@@ -89,8 +96,17 @@ one two three four five
 
 ```
 
-Note that `xargs` outputs a trailing blank line because the last argument was actually `five\n`.
+> [!note]
+> `xargs` outputs a trailing blank line because the last argument was actually `five\n`.
 
+Typically, to prevent word splitting, you use the `-I` option, which is shown in [Process all arguments in a single line of output](#Process%20all%20arguments%20in%20a%20single%20line%20of%20output). Another approach, however, is to specify a new line character, `\n`, as the delimiter. The following example, shown with `p` (for prompt) shows you how `xargs` would prevent word splitting by quoting `Renewal Lease.pdf`, since it's contained on one line:
+
+```shellsession
+$ ls -rt1 | tail -1 | xargs -p -d '\n'  mv -t ../Cloud\ Drive/Apartments/
+mv -t '../Cloud Drive/Apartments/' 'Renewal Lease.pdf'?...y
+```
+
+The user typed`y` to accept the command. If you use `p` and you don't want to execute the command, type `n`.
 ### Process all arguments in a single line of output
 
 By default, `xargs` splits on whitespace but will still pass all of the arguments at once to the command that comes after it, as in this example:
